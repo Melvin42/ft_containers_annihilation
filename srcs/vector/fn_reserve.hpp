@@ -6,10 +6,8 @@ void	fn_reserve() {
 	std::cout << "making foo grow:\n";
 	for (int i=0; i<100; ++i) {
 		foo.push_back(i);
-		if (sz!=foo.capacity()) {
-			sz = foo.capacity();
-			std::cout << "capacity changed: " << sz << '\n';
-		}
+		sz = foo.capacity();
+		std::cout << (sz >= foo.size()) << '\n';
 	}
 
 	ft::vector<int> bar;
@@ -18,9 +16,7 @@ void	fn_reserve() {
 	std::cout << "making bar grow:\n";
 	for (int i=0; i<100; ++i) {
 		bar.push_back(i);
-		if (sz!=bar.capacity()) {
-			sz = bar.capacity();
-			std::cout << "capacity changed: " << sz << '\n';
-		}
+		sz = bar.capacity();
+		std::cout << (sz >= bar.size()) << '\n';
 	}
 }
