@@ -4,8 +4,8 @@ SRC=srcs
 CURRENT=includes.hpp
 INCLUDES=includes.hpp
 LOG=logs
-INCLUDE_FT=../../../rvalton
-PATH_FT=rvalton
+PATH_FT=melperri
+INCLUDE_FT=../../../$PATH_FT
 PATH_TESTS=tests
 ERROR="There is an error. Stop."
 CC="clang++ -Wall -Wextra -Werror"
@@ -122,13 +122,13 @@ folder_title()
 	echo "$ENDCOLOR"
 }
 
-echo "" > deepthough 
+echo "" > deepthough
 rm bin/*
 cd $SRC
 for i in *
 do
 	DIR=$i
-	mkdir -p ../$LOG/$DIR 
+	mkdir -p ../$LOG/$DIR
 	folder_title
 	cd $DIR
 	generate_main
