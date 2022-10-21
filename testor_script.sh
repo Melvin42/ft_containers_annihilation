@@ -4,12 +4,12 @@
 SRC=srcs
 CURRENT=includes.hpp
 INCLUDES=includes.hpp
-LOG=log
-PATH_FT=./container
+LOG=logs
+PATH_FT=./rvalton
 PATH_TESTS=./tests
 ERROR="There is an error. Stop."
 CC="clang++ -Wall -Wextra -Werror"
-TRC=.~/deepthough
+TRC=./deepthough
 RED="\033[31m"
 GREEN="\033[32m"
 CYAN="\033[36m"
@@ -25,14 +25,32 @@ generate_main()
 	mkdir $SRC/$PATH_TESTS
 	cp $INCLUDES $SRC/$PATH_TESTS
 	cd $SRC
-	for i in *.cpp
+	for i in *.hpp
 	do
-		cp $PATH_TESTS/$INCLUDES $PATH_TESTS/"$i"
-		mv $PATH_TESTS/"$i" $(echo $PATH_TESTS/"$i" | sed 's/.hpp/.cpp/g')
-		echo -e '#include' "$i" >> $PATH_TESTS/"$i"
-		echo -e 'int main(void) {\n' >> $PATH_TESTS/"$i"
-		echo -e '\t'"$i" | sed "s/.cpp/();/g" >> $PATH_TESTS/"$i"
-		echo -e '\n\treturn 0;\n' >> $PATH_TESTS/"$i"
+		NEW_NAME=$(echo $PATH_TESTS/"$i" | sed "s/.hpp/.cpp/g" | sed "s/fn_/test_/g")
+		echo -e "new name = " $NEW_NAME
+#		cp $PATH_TESTS/$INCLUDES $NEW_NAME #$PATH_TESTS/"$i"
+#		echo -e "mv $PATH_TESTS/""$i"" $(echo $PATH_TESTS/""$i"" | sed 's/.hpp/.cpp/g')"
+#		mv $PATH_TESTS/"$i" $(echo $PATH_TESTS/"$i" | sed 's/.hpp/.cpp/g')
+#		mv $PATH_TESTS/"$i" $NEW_NAME
+		echo -e '#include' '<utility>' >> $NEW_NAME
+		echo -e '#include' '<string>' >> $NEW_NAME
+		echo -e '#include' '<iostream>' >> $NEW_NAME
+		echo -e '#include' '<deque>' >> $NEW_NAME
+		echo -e '#if STD' >> $NEW_NAME
+		echo -e '#include' '<stack>' >> $NEW_NAME
+		echo -e '#include' '<map>' >> $NEW_NAME
+		echo -e '#include' '<vector>' >> $NEW_NAME
+		echo -e '#else' >> $NEW_NAME
+		echo -e '#include' '"'$PATH_FT'/stack.hpp''"' >> $NEW_NAME
+		echo -e '#include' '"'$PATH_FT'/pair.hpp''"' >> $NEW_NAME
+		echo -e '#include' '"'$PATH_FT'/vector.hpp''"' >> $NEW_NAME
+		echo -e '#include' '"'$PATH_FT'/map.hpp''"' >> $NEW_NAME
+		echo -e '#endif' >> $NEW_NAME
+		echo -e '#include' "../""$i" >> $NEW_NAME
+		echo -e 'int main(void) {\n' >> $NEW_NAME
+		echo -e '\t'"$i" | sed "s/.hpp/();/g" >> $NEW_NAME
+		echo -e '\n\treturn 0;\n}' >> $NEW_NAME
 	done
 }
 
@@ -51,7 +69,7 @@ test_diff()
 
 compile_test()
 {
-	$CC $PATH_TESTS/$CURRENT && ./a.out | cat -e > $PATH_TESTS/$LOG/$CURRENT.output
+	$CC $PATH_TESTS/$CURRENT && ./a.out | cat -e > $(echo $PATH_TESTS/$LOG/$CURRENT | sed 's/.cpp/.output/g')
 }
 
 compile_test_user()
@@ -92,9 +110,18 @@ bash ./welcome.sh
 echo -e "generating map tests"
 SRC=srcs/map
 generate_main
+echo -e "PWD"
+pwd
+echo -e "ls tests"
+ls tests
 echo -e "testing map.empty()"
-CURRENT=empty.cpp
+CURRENT=test_empty.cpp
 compile_test
+echo -e "cat tests/ft_logs/test_empty.output"
+cat tests/ft_logs/test_empty.ouput
+compile_test
+echo -e "cat tests/std_logs/test_empty.output"
+cat tests/ft_logs/test_empty.ouput
 ls $SRC/$DIR
 
 make all > $TRC
