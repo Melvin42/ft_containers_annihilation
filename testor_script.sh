@@ -6,8 +6,8 @@ CURRENT=includes.hpp
 INCLUDES=includes.hpp
 LOG=logs
 INCLUDE_FT=../../../rvalton
-PATH_FT=./rvalton
-PATH_TESTS=./tests
+PATH_FT=rvalton
+PATH_TESTS=tests
 ERROR="There is an error. Stop."
 CC="clang++ -Wall -Wextra -Werror"
 TRC=./deepthough
@@ -22,14 +22,16 @@ ENDCOLOR="\e[0m"
 
 generate_main()
 {
-	rm -rf $SRC/$DIR/$PATH_TESTS
-	mkdir $SRC/$DIR/$PATH_TESTS
-	cp $INCLUDES $SRC/$DIR/$PATH_TESTS
-	cd $SRC/$DIR
+	rm -rf $DIR/$PATH_TESTS
+	echo 'mkdir' "$DIR/$PATH_TESTS"
+	mkdir -p $DIR/$PATH_TESTS
+#	cp $INCLUDES $SRC/$DIR/$PATH_TESTS
+	echo 'cd' "$DIR"
+	cd $DIR
 	for i in *.hpp
 	do
 		NEW_NAME=$(echo $PATH_TESTS/"$i" | sed "s/.hpp/.cpp/g" | sed "s/fn_/test_/g")
-		echo "new name = " $NEW_NAME
+#		echo "new name = " $NEW_NAME
 #		cp $PATH_TESTS/$INCLUDES $NEW_NAME #$PATH_TESTS/"$i"
 #		echo -e "mv $PATH_TESTS/""$i"" $(echo $PATH_TESTS/""$i"" | sed 's/.hpp/.cpp/g')"
 #		mv $PATH_TESTS/"$i" $(echo $PATH_TESTS/"$i" | sed 's/.hpp/.cpp/g')
@@ -42,6 +44,7 @@ generate_main()
 		echo '#include' '<stack>' >> $NEW_NAME
 		echo '#include' '<map>' >> $NEW_NAME
 		echo '#include' '<vector>' >> $NEW_NAME
+		echo 'namespace ft = std;' >> $NEW_NAME
 		echo '#else' >> $NEW_NAME
 		echo '#include' '"'$INCLUDE_FT'/stack.hpp''"' >> $NEW_NAME
 		echo '#include' '"'$INCLUDE_FT'/pair.hpp''"' >> $NEW_NAME
@@ -53,7 +56,8 @@ generate_main()
 		echo '\t'"$i" | sed "s/.hpp/();/g" >> $NEW_NAME
 		echo '\n\treturn 0;\n}' >> $NEW_NAME
 	done
-	cd ../..
+	echo 'cd' ".."
+	cd ..
 }
 
 test_diff()
@@ -72,13 +76,13 @@ test_diff()
 compile_test()
 {
 	pwd
-	$CC $SRC/$DIR/$PATH_TESTS/$CURRENT.cpp -o ./bin/$CURRENT.std && ./bin/$CURRENT.std | cat -e > $(echo $LOG/$CURRENT.std | sed 's/.std/.output.std/g')
+	$CC -D STD=1 $PATH_TESTS/$CURRENT.cpp -o ../../bin/$CURRENT.std && ../../bin/$CURRENT.std | cat -e > $(echo ../../$LOG/$DIR/$CURRENT.std | sed 's/.std/.output.std/g')
 }
 
 compile_test_user()
 {
 	pwd
-	$CC $SRC/$DIR/$PATH_TESTS/$CURRENT.cpp -o ./bin/$CURRENT.ft && ./bin/$CURRENT.ft | cat -e > $(echo $LOG/$CURRENT.ft | sed 's/.ft/.output.ft/g')
+	$CC $PATH_TESTS/$CURRENT.cpp -o ../../bin/$CURRENT.ft && ../../bin/$CURRENT.ft | cat -e > $(echo ../../$LOG/$DIR/$CURRENT.ft | sed 's/.ft/.output.ft/g')
 }
 
 write_deepthough()
@@ -95,8 +99,8 @@ test_function()
 	title
 
 	compile_test
-#	compile_test_user
-#	DIFF=$(diff -U 3 $LOGS/$CURRENT.output.std $LOGS/$CURRENT.output.ft)
+	compile_test_user
+#	DIFF=$(diff -U 3 $LOGS/$DIR/$CURRENT.output.std $LOGS/$DIR/$CURRENT.output.ft)
 #	test_diff
 }
 
@@ -110,33 +114,26 @@ title()
 }
 
 bash ./welcome.sh
-echo "generating map tests"
-DIR=map
-generate_main
-pwd
 #test_folder() {
-#for i in *
-#do
+echo "generating map tests"
+#DIR=map
+#generate_main
+#DIR=vector
+#generate_main
+cd $SRC
+pwd
+for i in *
+do
 	DIR=$i
+	echo 'test_folder' "$i"
+	generate_main
 	cd $DIR
-	for j in *.cpp 
-		CURRENT=$(echo $j # a sed de son .cpp
+	for j in *.cpp
 	do
+		CURRENT=$(echo $j | sed "s/.cpp//g")
+		test_function
 	done
 	cd ..
-#done
-
-CURRENT=test_empty
-compile_test
-pwd
-ls
-#ls $SRC/$DIR
-
-#make all > $TRC
-#make clean  > /dev/null
+done
 
 ################################################################################
-
-TEST=$CURRENT
-test_function
-
