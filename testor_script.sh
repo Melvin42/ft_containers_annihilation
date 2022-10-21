@@ -96,8 +96,6 @@ echo -e "testing map.empty()"
 CURRENT=empty.cpp
 compile_test
 ls $SRC/$DIR
-echo "" > ./deepthought
-cd $PATH_CONTAINER
 
 make all > $TRC
 make clean  > /dev/null
