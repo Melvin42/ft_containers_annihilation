@@ -78,7 +78,7 @@ compile_test()
 compile_test_user()
 {
 	pwd
-	$CC $PATH_FT/$CURRENT.cpp -o ./bin/$CURRENT.ft && ./bin/$CURRENT.ft | cat -e > $(echo $LOG/$CURRENT.ft | sed 's/.std/.output.ft/g')
+	$CC $SRC/$DIR/$PATH_TESTS/$CURRENT.cpp -o ./bin/$CURRENT.ft && ./bin/$CURRENT.ft | cat -e > $(echo $LOG/$CURRENT.ft | sed 's/.ft/.output.ft/g')
 }
 
 write_deepthough()
@@ -96,7 +96,7 @@ test_function()
 
 	compile_test
 #	compile_test_user
-#	DIFF=$(diff -U 3 $LOGS/user_output_test$NBR $PATH_TESTS/ft_$TEST/test$NBR.output)
+#	DIFF=$(diff -U 3 $LOGS/$CURRENT.output.std $LOGS/$CURRENT.output.ft)
 #	test_diff
 }
 
@@ -106,7 +106,7 @@ title()
 	echo " ____________________________________________________________________________"
 	echo "|                               ft_$TEST                                   |"
 	echo " ----------------------------------------------------------------------------"
-	echo "\e[0m"
+	echo "$ENDCOLOR"
 }
 
 bash ./welcome.sh
@@ -115,8 +115,17 @@ DIR=map
 generate_main
 pwd
 #test_folder() {
-#for i in *.cpp
+#for i in *
 #do
+	DIR=$i
+	cd $DIR
+	for j in *.cpp 
+		CURRENT=$(echo $j # a sed de son .cpp
+	do
+	done
+	cd ..
+#done
+
 CURRENT=test_empty
 compile_test
 pwd
