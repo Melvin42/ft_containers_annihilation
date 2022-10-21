@@ -1,6 +1,10 @@
 #!/bin/bash
 
 #PATH_CONTAINER=~/container_annihilation/testor/
+SRC=srcs
+CURRENT=includes.hpp
+INCLUDES=includes.hpp
+LOG=log
 PATH_FT=./container
 PATH_TESTS=./tests
 ERROR="There is an error. Stop."
@@ -14,6 +18,23 @@ BOLD="\e[1m"
 ENDCOLOR="\e[0m"
 
 exec 2> /dev/null
+
+generate_main()
+{
+	rm -rf $SRC/$PATH_TESTS
+	mkdir $SRC/$PATH_TESTS
+	cp $INCLUDES $SRC/$PATH_TESTS
+	cd $SRC
+	for i in *.cpp
+	do
+		cp $PATH_TESTS/$INCLUDES $PATH_TESTS/"$i"
+		mv $PATH_TESTS/"$i" $(echo $PATH_TESTS/"$i" | sed 's/.hpp/.cpp/g')
+		echo -e '#include' "$i" >> $PATH_TESTS/"$i"
+		echo -e 'int main(void) {\n' >> $PATH_TESTS/"$i"
+		echo -e '\t'"$i" | sed "s/.cpp/();/g" >> $PATH_TESTS/"$i"
+		echo -e '\n\treturn 0;\n' >> $PATH_TESTS/"$i"
+	done
+}
 
 test_diff()
 {
@@ -30,7 +51,7 @@ test_diff()
 
 compile_test()
 {
-	$CC $PATH_TESTS/ft_$TEST/test_true_$TEST.c && ./a.out | cat -e > $PATH_TESTS/ft_$TEST/test$NBR.output
+	$CC $PATH_TESTS/$CURRENT && ./a.out | cat -e > $PATH_TESTS/$LOG/$CURRENT.output
 }
 
 compile_test_user()
@@ -68,7 +89,13 @@ title()
 }
 
 bash ./welcome.sh
-
+echo -e "generating map tests"
+SRC=srcs/map
+generate_main
+echo -e "testing map.empty()"
+CURRENT=empty.cpp
+compile_test
+ls $SRC/$DIR
 echo "" > ./deepthought
 cd $PATH_CONTAINER
 
@@ -80,37 +107,3 @@ make clean  > /dev/null
 TEST="isalpha"
 test_function
 
-################################################################################
-
-TEST="isdigit"
-test_function
-
-################################################################################
-
-TEST="isalnum"
-test_function
-
-################################################################################
-
-TEST="isascii"
-test_function
-
-################################################################################
-
-TEST="isprint"
-test_function
-
-################################################################################
-
-TEST="toupper"
-test_function
-
-################################################################################
-
-TEST="tolower"
-test_function
-
-################################################################################
-
-TEST="strlen"
-test_function
