@@ -1,5 +1,5 @@
 void	fn_operator_hook() {
-	ft::map<char,ft::string> mymap;
+	ft::map<char,std::string> mymap;
 
 	mymap['a']="an element";
 	mymap['b']="another element";

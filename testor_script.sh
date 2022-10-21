@@ -22,12 +22,10 @@ ENDCOLOR="\e[0m"
 
 generate_main()
 {
-	rm -rf $DIR/$PATH_TESTS
-	echo 'mkdir' "$DIR/$PATH_TESTS"
-	mkdir -p $DIR/$PATH_TESTS
+	rm -rf $PATH_TESTS
+	echo 'mkdir' "$PATH_TESTS"
+	mkdir -p $PATH_TESTS
 #	cp $INCLUDES $SRC/$DIR/$PATH_TESTS
-	echo 'cd' "$DIR"
-	cd $DIR
 	for i in *.hpp
 	do
 		NEW_NAME=$(echo $PATH_TESTS/"$i" | sed "s/.hpp/.cpp/g" | sed "s/fn_/test_/g")
@@ -56,12 +54,12 @@ generate_main()
 		echo '\t'"$i" | sed "s/.hpp/();/g" >> $NEW_NAME
 		echo '\n\treturn 0;\n}' >> $NEW_NAME
 	done
-	echo 'cd' ".."
-	cd ..
 }
 
 test_diff()
 {
+	DIFF=$(diff -U 3 ../../../$LOG/$DIR/$CURRENT.output.std ../../../$LOG/$DIR/$CURRENT.output.ft)
+
 	if ["$DIFF" == ""]
 	then
 		echo "$GREEN$UNDERLINE*Test $NBR :$ENDCOLOR$GREEN OK \U1F603"
@@ -75,14 +73,12 @@ test_diff()
 
 compile_test()
 {
-	pwd
-	$CC -D STD=1 $PATH_TESTS/$CURRENT.cpp -o ../../bin/$CURRENT.std && ../../bin/$CURRENT.std | cat -e > $(echo ../../$LOG/$DIR/$CURRENT.std | sed 's/.std/.output.std/g')
+	$CC -D STD=1 $CURRENT.cpp -o ../../../bin/$CURRENT.std && ../../../bin/$CURRENT.std | cat -e > $(echo ../../../$LOG/$DIR/$CURRENT.std | sed 's/.std/.output.std/g')
 }
 
 compile_test_user()
 {
-	pwd
-	$CC $PATH_TESTS/$CURRENT.cpp -o ../../bin/$CURRENT.ft && ../../bin/$CURRENT.ft | cat -e > $(echo ../../$LOG/$DIR/$CURRENT.ft | sed 's/.ft/.output.ft/g')
+	$CC $CURRENT.cpp -o ../../../bin/$CURRENT.ft && ../../../bin/$CURRENT.ft | cat -e > $(echo ../../../$LOG/$DIR/$CURRENT.ft | sed 's/.ft/.output.ft/g')
 }
 
 write_deepthough()
@@ -100,34 +96,32 @@ test_function()
 
 	compile_test
 	compile_test_user
-#	DIFF=$(diff -U 3 $LOGS/$DIR/$CURRENT.output.std $LOGS/$DIR/$CURRENT.output.ft)
-#	test_diff
+	test_diff
 }
 
 title()
 {
 	echo "$CYAN$BOLD"
 	echo " ____________________________________________________________________________"
-	echo "|                               ft_$TEST                                   |"
+	echo "|                               $CURRENT                                   |"
 	echo " ----------------------------------------------------------------------------"
 	echo "$ENDCOLOR"
 }
 
 bash ./welcome.sh
 #test_folder() {
-echo "generating map tests"
+#echo "generating map tests"
 #DIR=map
 #generate_main
 #DIR=vector
 #generate_main
 cd $SRC
-pwd
 for i in *
 do
 	DIR=$i
-	echo 'test_folder' "$i"
-	generate_main
 	cd $DIR
+	generate_main
+	cd $PATH_TESTS
 	for j in *.cpp
 	do
 		CURRENT=$(echo $j | sed "s/.cpp//g")
