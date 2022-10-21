@@ -2,12 +2,12 @@
 
 clear
 
-echo -e "\033[36m\e[1m"
+echo "\033[36m\e[1m"
 echo " _____________________________________________________________________________"
-echo "|                      WELCOME TO CONTAINER_ANNIHILATION                          |"
+echo "|                      WELCOME TO CONTAINER_ANNIHILATION"
 echo " -----------------------------------------------------------------------------"
 
-echo -e "\033[31m"
+echo "\033[31m"
 echo "                                    /[-])//  ___ "
 echo "                                __ --\ \`_/~--|  / \ "
 echo "                              /_-/~~--~~ /~~~\\_\ /\ "
@@ -30,5 +30,5 @@ echo "                                 |   |/         \_--_- |\ "
 echo "                                 |  /            /   |/\/ "
 echo "                                  ~~             /  / "
 echo "                                                |__/ "
-echo -e "\e[0m"
+echo "\e[0m"
 sleep 2

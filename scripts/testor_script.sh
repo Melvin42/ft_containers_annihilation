@@ -1,6 +1,5 @@
 #!/bin/bash
 
-#PATH_CONTAINER=~/container_annihilation/testor/
 SRC=srcs
 CURRENT=includes.hpp
 INCLUDES=includes.hpp
@@ -10,20 +9,20 @@ PATH_FT=rvalton
 PATH_TESTS=tests
 ERROR="There is an error. Stop."
 CC="clang++ -Wall -Wextra -Werror"
-TRC=./deepthough
+TRC=../../../deepthough
 RED="\033[31m"
 GREEN="\033[32m"
+MAGENTA="\033[35m"
 CYAN="\033[36m"
 UNDERLINE="\e[4m"
 BOLD="\e[1m"
 ENDCOLOR="\e[0m"
 
-#exec 2> /dev/null
+exec 2> /dev/null
 
 generate_main()
 {
 	rm -rf $PATH_TESTS
-	echo 'mkdir' "$PATH_TESTS"
 	mkdir -p $PATH_TESTS
 #	cp $INCLUDES $SRC/$DIR/$PATH_TESTS
 	for i in *.hpp
@@ -62,11 +61,11 @@ test_diff()
 
 	if ["$DIFF" == ""]
 	then
-		echo "$GREEN$UNDERLINE*Test $NBR :$ENDCOLOR$GREEN OK \U1F603"
+		echo "$GREEN$UNDERLINE*Test :$ENDCOLOR$GREEN OK 🎖️"
 		echo "\nDiff OK :D" >> $TRC
 	else
-		echo "$RED$UNDERLINE Test $NBR :$ENDCOLOR$RED KO \U1F620"
-		echo ${DIFF} | cat -e >> $TRC
+		echo "$RED$UNDERLINE Test :$ENDCOLOR$RED KO 💀"
+		echo ${DIFF} >> $TRC
 		echo "\nDiff KO :(" >> $TRC
 	fi
 }
@@ -83,11 +82,14 @@ compile_test_user()
 
 write_deepthough()
 {
-	echo "\n= ft_$TEST.c ================================================================" >> $TRC
-	echo "\n$> $CC ft_$TEST.c main.c -o user_exe" >> $TRC
-	echo "\n= Test $NBR ===================================================" >> $TRC
-	echo "\n$> ./user_exe $NBR" >> $TRC
-	echo "\ndiff -U 3 user_output_test$NBR test$NBR.output" >> $TRC
+	echo -n "\n= $CURRENT ================================================================" >> $TRC
+	echo -n "\n$> $CC $CURRENT.cpp -o $CURRENT.ft" >> $TRC
+	echo -n "\n$> $CC $CURRENT.cpp -o $CURRENT.std" >> $TRC
+	echo -n "\n= Test ===================================================" >> $TRC
+	echo -n "\n$> ./$CURRENT.ft" >> $TRC
+	echo -n "\n$> ./$CURRENT.std" >> $TRC
+	echo "\ndiff -U 3 $CURRENT.output.ft $CURRENT.output.std" >> $TRC
+
 }
 
 test_function()
@@ -96,6 +98,7 @@ test_function()
 
 	compile_test
 	compile_test_user
+	write_deepthough
 	test_diff
 }
 
@@ -103,22 +106,30 @@ title()
 {
 	echo "$CYAN$BOLD"
 	echo " ____________________________________________________________________________"
-	echo "|                               $CURRENT                                   |"
+	echo "|                               $CURRENT"
 	echo " ----------------------------------------------------------------------------"
 	echo "$ENDCOLOR"
 }
 
-bash ./welcome.sh
-#test_folder() {
-#echo "generating map tests"
-#DIR=map
-#generate_main
-#DIR=vector
-#generate_main
+folder_title()
+{
+	echo "$MAGENTA$BOLD"
+	echo " ____________________________________________________________________________"
+	echo "|"
+	echo "|                               $DIR"
+	echo "|"
+	echo " ----------------------------------------------------------------------------"
+	echo "$ENDCOLOR"
+}
+
+echo "" > deepthough 
+rm bin/*
 cd $SRC
 for i in *
 do
 	DIR=$i
+	mkdir -p ../$LOG/$DIR 
+	folder_title
 	cd $DIR
 	generate_main
 	cd $PATH_TESTS
@@ -127,7 +138,7 @@ do
 		CURRENT=$(echo $j | sed "s/.cpp//g")
 		test_function
 	done
-	cd ..
+	cd ../..
 done
 
 ################################################################################
