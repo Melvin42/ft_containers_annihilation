@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_upper_bound() {
+void	fn_upper_bound() {
 	ft::map<char,int> mymap;
 	ft::map<char,int>::iterator itlow,itup;
 

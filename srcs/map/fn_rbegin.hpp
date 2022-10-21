@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_rbegin() {
+void	fn_rbegin() {
 	ft::map<char,int> mymap;
 
 	mymap['x'] = 100;

@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_relational_operators() {
+void	fn_relational_operators() {
 	ft::map<char,int> foo,bar;
 	foo['a']=100;
 	foo['b']=200;

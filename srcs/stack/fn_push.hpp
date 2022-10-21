@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_push() {
+void	fn_push() {
 	ft::stack<int> mystack;
 
 	for (int i=0; i<5; ++i) mystack.push(i);

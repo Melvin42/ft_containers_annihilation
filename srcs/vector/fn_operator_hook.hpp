@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_operator_hook() {
+void	fn_operator_hook() {
 	ft::vector<int> myvector (10);   // 10 zero-initialized elements
 
 	ft::vector<int>::size_type sz = myvector.size();

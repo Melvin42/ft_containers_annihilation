@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_max_size() {
+void	fn_max_size() {
 	int i;
 	ft::map<int,int> mymap;
 

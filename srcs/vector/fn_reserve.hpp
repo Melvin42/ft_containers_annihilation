@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_reserve() {
+void	fn_reserve() {
 	ft::vector<int>::size_type sz;
 
 	ft::vector<int> foo;

@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_front() {
+void	fn_front() {
 	ft::vector<int> myvector;
 
 	myvector.push_back(78);

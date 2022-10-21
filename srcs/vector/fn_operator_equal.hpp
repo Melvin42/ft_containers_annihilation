@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_operator_equal() {
+void	fn_operator_equal() {
 	ft::vector<int> foo (3,0);
 	ft::vector<int> bar (5,0);
 

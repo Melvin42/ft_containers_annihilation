@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_top() {
+void	fn_top() {
 	ft::stack<int> mystack;
 
 	mystack.push(10);

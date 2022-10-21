@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_pop_back() {
+void	fn_pop_back() {
 	ft::vector<int> myvector;
 	int sum (0);
 	myvector.push_back (100);

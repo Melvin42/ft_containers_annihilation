@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_equal_range() {
+void	fn_equal_range() {
 	ft::map<char,int> mymap;
 
 	mymap['a']=10;

@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_erase() {
+void	fn_erase() {
 	ft::vector<int> myvector;
 
 	// set some values (from 1 to 10)

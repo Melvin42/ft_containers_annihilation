@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_operator_equal() {
+void	fn_operator_equal() {
 	ft::map<char,int> first;
 	ft::map<char,int> second;
 

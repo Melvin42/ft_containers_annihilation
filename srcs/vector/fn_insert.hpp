@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_insert() {
+void	fn_insert() {
 	ft::vector<int> myvector (3,100);
 	ft::vector<int>::iterator it;
 

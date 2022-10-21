@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_value_comp() {
+void	fn_value_comp() {
 	ft::map<char,int> mymap;
 
 	mymap['x']=1001;

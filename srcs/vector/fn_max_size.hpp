@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_max_size() {
+void	fn_max_size() {
 	ft::vector<int> myvector (3,100);
 	ft::vector<int>::iterator it;
 

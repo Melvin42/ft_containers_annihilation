@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_capacity() {
+void	fn_capacity() {
 	ft::vector<int> myvector;
 
 	// set some content in the vector:

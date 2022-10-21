@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_size() {
+void	fn_size() {
 	ft::vector<int> myints;
 	std::cout << "0. size: " << myints.size() << '\n';
 

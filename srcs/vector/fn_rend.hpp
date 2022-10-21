@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_rend() {
+void	fn_rend() {
 	ft::vector<int> myvector (5);  // 5 default-constructed ints
 
 	ft::vector<int>::reverse_iterator rit = myvector.rbegin();

@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_relational_operators() {
+void	fn_relational_operators() {
 	ft::vector<int> foo (3,100);   // three ints with a value of 100
 	ft::vector<int> bar (2,200);   // two ints with a value of 200
 

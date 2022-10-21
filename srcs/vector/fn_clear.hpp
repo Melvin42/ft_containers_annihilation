@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_clear() {
+void	fn_clear() {
 	ft::vector<int> myvector;
 	myvector.push_back (100);
 	myvector.push_back (200);

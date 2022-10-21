@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_insert() {
+void	fn_insert() {
 	ft::map<char,int> mymap;
 
 	// first insert function version (single parameter):

@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_assign() {
+void	fn_assign() {
 	ft::vector<int> first;
 	ft::vector<int> second;
 	ft::vector<int> third;

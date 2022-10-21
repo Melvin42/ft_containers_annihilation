@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_operator_hook() {
+void	fn_operator_hook() {
 	ft::map<char,ft::string> mymap;
 
 	mymap['a']="an element";

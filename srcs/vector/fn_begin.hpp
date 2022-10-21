@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_() {
+void	fn_() {
 	ft::vector<int> myvector;
 	for (int i=1; i<=5; i++) myvector.push_back(i);
 

@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_swap_map() {
+void	fn_swap_map() {
 	ft::map<char,int> foo,bar;
 
 	foo['x']=100;

@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_clear() {
+void	fn_clear() {
 	ft::map<char,int> mymap;
 
 	mymap['x']=100;

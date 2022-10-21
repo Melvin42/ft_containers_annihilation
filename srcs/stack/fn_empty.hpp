@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_empty() {
+void	fn_empty() {
 	ft::stack<int> mystack;
 	int sum (0);
 

@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_resize() {
+void	fn_resize() {
 	ft::vector<int> myvector;
 
 	// set some initial content:

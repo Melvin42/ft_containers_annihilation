@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_key_comp() {
+void	fn_key_comp() {
 	ft::map<char,int> mymap;
 
 	ft::map<char,int>::key_compare mycomp = mymap.key_comp();

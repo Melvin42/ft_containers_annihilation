@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_erase() {
+void	fn_erase() {
 	ft::map<char,int> mymap;
 	ft::map<char,int>::iterator it;
 

@@ -1,6 +1,4 @@
-#include "../../includes.hpp"
-
-void	test_find() {
+void	fn_find() {
 	ft::map<char,int> mymap;
 	ft::map<char,int>::iterator it;
 
