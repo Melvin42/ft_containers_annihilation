@@ -2,7 +2,6 @@
 
 SRC=srcs
 CURRENT=includes.hpp
-INCLUDES=includes.hpp
 LOG=logs
 PATH_FT=melperri
 INCLUDE_FT=../../../$PATH_FT
@@ -24,15 +23,9 @@ generate_main()
 {
 	rm -rf $PATH_TESTS
 	mkdir -p $PATH_TESTS
-#	cp $INCLUDES $SRC/$DIR/$PATH_TESTS
 	for i in *.hpp
 	do
 		NEW_NAME=$(echo $PATH_TESTS/"$i" | sed "s/.hpp/.cpp/g" | sed "s/fn_/test_/g")
-#		echo "new name = " $NEW_NAME
-#		cp $PATH_TESTS/$INCLUDES $NEW_NAME #$PATH_TESTS/"$i"
-#		echo -e "mv $PATH_TESTS/""$i"" $(echo $PATH_TESTS/""$i"" | sed 's/.hpp/.cpp/g')"
-#		mv $PATH_TESTS/"$i" $(echo $PATH_TESTS/"$i" | sed 's/.hpp/.cpp/g')
-#		mv $PATH_TESTS/"$i" $NEW_NAME
 		echo '#include' '<utility>' >> $NEW_NAME
 		echo '#include' '<string>' >> $NEW_NAME
 		echo '#include' '<iostream>' >> $NEW_NAME
@@ -72,12 +65,12 @@ test_diff()
 
 compile_test()
 {
-	$CC -D STD=1 $CURRENT.cpp -o ../../../bin/$CURRENT.std && ../../../bin/$CURRENT.std | cat -e > $(echo ../../../$LOG/$DIR/$CURRENT.std | sed 's/.std/.output.std/g')
+	$CC -D STD=1 $CURRENT.cpp -o ../../../bin/$CURRENT.std && ../../../bin/$CURRENT.std | cat -e > ../../../$LOG/$DIR/$CURRENT.output.std
 }
 
 compile_test_user()
 {
-	$CC $CURRENT.cpp -o ../../../bin/$CURRENT.ft && ../../../bin/$CURRENT.ft | cat -e > $(echo ../../../$LOG/$DIR/$CURRENT.ft | sed 's/.ft/.output.ft/g')
+	$CC $CURRENT.cpp -o ../../../bin/$CURRENT.ft 2>../../../$LOG/$DIR/$CURRENT.output.ft && ../../../bin/$CURRENT.ft | cat -e > ../../../$LOG/$DIR/$CURRENT.output.ft
 }
 
 write_deepthough()
@@ -123,7 +116,8 @@ folder_title()
 }
 
 echo "" > deepthough
-rm bin/*
+rm -rf bin $LOG
+mkdir -p bin $LOG
 cd $SRC
 for i in *
 do
@@ -140,5 +134,4 @@ do
 	done
 	cd ../..
 done
-
 ################################################################################
