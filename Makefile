@@ -1,6 +1,6 @@
 RUN=run.sh
 
-DIR= bin logs
+DIR= bin logs deepthough
 
 MAINS=srcs/map/tests srcs/vector/tests srcs/stack/tests
 
